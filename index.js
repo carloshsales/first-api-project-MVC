@@ -1,12 +1,22 @@
+console.clear();
+
 const express = require('express');
+const cors = require('cors');
+
 const app = express();
+app.use(cors());
+app.use(express.json());
+const port = 3000;
 
-const arr = require('./mock/service');
+const controller = require('./controllers/games.controller');
+const { json } = require('express');
 
-app.get('/', (req, res) => {
-    res.send();
-});
+app.get('/', controller.findAllGames);
+app.get('/games/:id', controller.findGamesId);
+app.post('/games/create', controller.createGame);
+app.put('/games/:id/update', controller.updateGame);
+app.delete('/games/:id/delete', controller.deleteGame);
 
-app.listen(3000, () => {
-    console.log('listening on: http://localhost:3000');
+app.listen(port, () => {
+    console.log('Rodando');
 });
