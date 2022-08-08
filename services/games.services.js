@@ -17,7 +17,6 @@ function getGamesId(id) {
 }
 
 function createGame(game) {
-    console.log('Chamou o create');
     const newGame = new GameEntity(game);
 
     newGame.validate();

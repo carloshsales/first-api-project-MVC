@@ -2,21 +2,15 @@ console.clear();
 
 const express = require('express');
 const cors = require('cors');
+const gamesRoutes = require('./routes/games.route');
 
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+app.use('/games', gamesRoutes);
+
 const port = 3000;
-
-const controller = require('./controllers/games.controller');
-const { json } = require('express');
-
-app.get('/', controller.findAllGames);
-app.get('/games/:id', controller.findGamesId);
-app.post('/games/create', controller.createGame);
-app.put('/games/:id/update', controller.updateGame);
-app.delete('/games/:id/delete', controller.deleteGame);
-
 app.listen(port, () => {
-    console.log('Rodando');
+    console.log('Rodando em: http://localhost:' + port);
 });
