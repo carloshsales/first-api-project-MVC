@@ -1,17 +1,16 @@
-const mongoose = require('mongoose');
+const { connect } = require('mongoose');
 
-function connect() {
-    mongoose
-        .connect('mongodb://localhost:27017/', {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        })
+function mongoConnect() {
+    connect('mongodb://localhost:27017/games', {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    })
         .then(() => {
-            console.log('Connected');
+            console.log('DataBase Mongo Connected');
         })
         .catch((err) => {
             console.log('Error in database', err);
         });
 }
 
-module.exports = connect;
+module.exports = mongoConnect;

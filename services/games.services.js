@@ -1,52 +1,57 @@
-const games = require('../mock/games');
 const GameEntity = require('../class/game.entity');
+const Game = require('../database/models/gameSchema');
 
-function getAllGames() {
-    return games;
+
+async function getAllGames() {
+    return await Game.find();
 }
 
-function getGamesId(id) {
-    let gamefinded;
-
-    games.map((game) => {
-        if (game.id === id) {
-            gamefinded = game;
-        }
-    });
+async function getGamesId(id) {
+    const gamefinded = await Game.findById(id);
     return gamefinded;
+
+    // games.map((game) => {
+    //     if (game.id === id) {
+    //         gamefinded = game;
+    //     }
+    // });
+    // return gamefinded;
 }
 
-function createGame(game) {
+async function createGame(game) {
     const newGame = new GameEntity(game);
-
     newGame.validate();
 
-    games.push(newGame);
+    /* Creating a new game and pushing it to the database. */
+    const gameCreated = await Game.create(newGame);
 
-    return newGame;
+    return gameCreated;
+    // games.push(newGame);
+
+    // return newGame;
 }
 
-function updateGame(game) {
+async function updateGame(game) {
     const gameUpdated = new GameEntity(game);
     gameUpdated.validate();
 
-    games.map((item, index) => {
-        if (item.id === gameUpdated.id) {
-            games.splice(index, 1, gameUpdated);
-        }
-    });
+    // games.map((item, index) => {
+    //     if (item.id === gameUpdated.id) {
+    //         games.splice(index, 1, gameUpdated);
+    //     }
+    // });
 
-    return gameUpdated;
+    const gameUpdatedInDatabase = await Game.findOneAndUpdate(
+        { id: game.id },
+        gameUpdated,
+        { new: true },
+    );
+
+    return gameUpdatedInDatabase;
 }
 
-function deleteGame(id) {
-    let gameDeleted;
-    games.map((item, index) => {
-        if (item.id === id) {
-            gameDeleted = item;
-            games.splice(index, 1);
-        }
-    });
+async function deleteGame(id) {
+    const gameDeleted = await Game.findOneAndDelete({ id: id });
 
     return gameDeleted;
 }

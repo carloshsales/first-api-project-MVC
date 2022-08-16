@@ -1,8 +1,8 @@
 const gameService = require('../services/games.services');
 
-function findAllGames(req, res) {
+async function findAllGames(req, res) {
     try {
-        const allGames = gameService.getAllGames();
+        const allGames = await gameService.getAllGames();
         res.send(allGames);
     } catch (err) {
         console.log(err);
@@ -10,9 +10,9 @@ function findAllGames(req, res) {
     }
 }
 
-function findGamesId(req, res) {
+async function findGamesId(req, res) {
     const id = req.params.id;
-    const uniqueGame = gameService.getGamesId(id);
+    const uniqueGame = await gameService.getGamesId(id);
     if (uniqueGame) {
         res.status(200).send(uniqueGame);
     } else {
@@ -20,10 +20,10 @@ function findGamesId(req, res) {
     }
 }
 
-function createGame(req, res) {
+async function createGame(req, res) {
     try {
         const game = req.body;
-        const gameCreated = gameService.createGame(game);
+        const gameCreated = await gameService.createGame(game);
 
         res.send(gameCreated);
     } catch (err) {
@@ -32,10 +32,10 @@ function createGame(req, res) {
     }
 }
 
-function updateGame(req, res) {
+async function updateGame(req, res) {
     try {
         const game = req.body;
-        const gameUpdated = gameService.updateGame(game);
+        const gameUpdated = await gameService.updateGame(game);
 
         res.send(gameUpdated);
     } catch (err) {
@@ -44,9 +44,9 @@ function updateGame(req, res) {
     }
 }
 
-function deleteGame(req, res) {
+async function deleteGame(req, res) {
     const id = req.params.id;
-    const gameDeleted = gameService.deleteGame(id);
+    const gameDeleted = await gameService.deleteGame(id);
 
     if (gameDeleted) {
         res.send(gameDeleted);

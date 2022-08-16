@@ -1,8 +1,6 @@
-let list = require('../mock/games');
-
+let { getAllGames } = require('../services/games.services');
 class GameEntity {
     constructor(game) {
-        this.id = `${list.length + 1}`;
         this.name = game.name;
         this.gen = game.gen;
         this.mode = game.mode;

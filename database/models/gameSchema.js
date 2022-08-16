@@ -1,8 +1,6 @@
-const mongoose = require('mongoose');
+const { Schema, model } = require('mongoose');
 
-const { Schema } = mongoose;
-
-const palletSchema = new Schem({
+const GameSchema = new Schema({
     id: { type: String, required: true },
     name: { type: String, required: true },
     gen: { type: String, required: true },
@@ -13,3 +11,7 @@ const palletSchema = new Schem({
     publisher: { type: String, required: true },
     createAt: { type: Date, default: Date.now() },
 });
+
+const Games = model('Games', GameSchema);
+
+module.exports = Games;
