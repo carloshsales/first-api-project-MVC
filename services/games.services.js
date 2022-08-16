@@ -1,7 +1,6 @@
 const GameEntity = require('../class/game.entity');
 const Game = require('../database/models/gameSchema');
 
-
 async function getAllGames() {
     return await Game.find();
 }
@@ -51,7 +50,7 @@ async function updateGame(game) {
 }
 
 async function deleteGame(id) {
-    const gameDeleted = await Game.findOneAndDelete({ id: id });
+    const gameDeleted = await Game.findOneAndDelete(id);
 
     return gameDeleted;
 }

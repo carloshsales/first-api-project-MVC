@@ -1,6 +1,8 @@
-let { getAllGames } = require('../services/games.services');
+const { v4: uuidv4 } = require('uuid');
+
 class GameEntity {
     constructor(game) {
+        this.id = uuidv4().v1;
         this.name = game.name;
         this.gen = game.gen;
         this.mode = game.mode;
@@ -37,7 +39,6 @@ class GameEntity {
 
     getGame() {
         return {
-            id: this.id,
             name: this.name,
             gen: this.gen,
             mode: this.mode,
